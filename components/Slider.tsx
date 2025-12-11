@@ -1,5 +1,12 @@
 import React from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 type Item = {
   id?: string | number;
@@ -33,15 +40,14 @@ export default function CollectionSlider({
           style={[styles.card, { width: itemWidth, marginRight: gap }]}
         >
           <View style={[styles.imgPlaceholder, { width: itemWidth - 16 }]}>
-            <img
-              src={typeof item.image === "string" ? item.image : undefined}
-              alt={item.title}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                borderRadius: 8,
-              }}
+            <Image
+              source={
+                typeof item.image === "string"
+                  ? { uri: item.image }
+                  : item.image
+              }
+              style={{ width: "100%", height: 120, borderRadius: 8 }}
+              resizeMode="cover"
             />
           </View>
           <Text numberOfLines={2} style={styles.title}>
