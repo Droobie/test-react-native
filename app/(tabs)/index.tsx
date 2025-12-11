@@ -1,9 +1,12 @@
 import Heading from "@/components/Heading";
+import CollectionSlider from "@/components/Slider";
+import "@/global.css";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import {
   Dimensions,
   FlatList,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -74,7 +77,10 @@ const verticalVideoList = [
 
 export default function Index() {
   return (
-    <ScrollView style={styles.page}>
+    <ScrollView
+      style={styles.page}
+      {...(Platform.OS === "web" ? { touchAction: "pan-y" } : {})}
+    >
       <Link href="/about">
         <View style={styles.imageContainer}>
           <Image
@@ -157,10 +163,13 @@ export default function Index() {
         <Heading style={styles.collectionHeading} level={2}>
           Collecties
         </Heading>
-        <FlatList
+        {/* <FlatList
           style={styles.collectionList}
           data={listItemsData}
           keyExtractor={(item) => item.title}
+          snapToAlignment="start"
+          showsHorizontalScrollIndicator={false}
+          decelerationRate="fast"
           horizontal
           renderItem={({ item }) => (
             <View style={styles.collectionListItem}>
@@ -168,7 +177,8 @@ export default function Index() {
               <Text style={styles.subImageTitle}>{item.title}</Text>
             </View>
           )}
-        />
+        /> */}
+        <CollectionSlider data={listItemsData} />
       </View>
       <View style={styles.collectionContainer}>
         <Heading style={styles.collectionHeading} level={2}>
